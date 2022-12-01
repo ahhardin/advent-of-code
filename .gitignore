@@ -1,0 +1,3 @@
+*.ipnyb
+/.ipnyb_checkpoints
+/advent-of-code
