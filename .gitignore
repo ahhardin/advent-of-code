@@ -1,5 +1,5 @@
 *.ipynb
 **/.ipynb_checkpoints/*
-/advent-of-code/
-**/secrets.py
+/env/
+**/session.py
 __pycache__/
