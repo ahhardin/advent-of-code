@@ -1,6 +1,6 @@
 ### day two ###
 import requests
-from advent_of_code.session import SESSION
+from years.session import SESSION
 response = requests.get('https://adventofcode.com/2022/day/2/input', headers={'Cookie': SESSION})
 data = response.content.decode('utf-8').strip().split('\n')
 pairs = [p.split(' ') for p in data]

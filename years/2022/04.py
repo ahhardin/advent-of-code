@@ -1,7 +1,7 @@
 ## day 4 ##
 import requests
 import re
-from advent_of_code.session import SESSION
+from years.session import SESSION
 response = requests.get('https://adventofcode.com/2022/day/4/input', headers={'Cookie': SESSION})
 data = response.content.decode('utf-8').strip().split('\n')
 full_overlaps = 0

@@ -1,5 +1,5 @@
 import requests
-from advent_of_code.session import SESSION
+from years.session import SESSION
 
 # part 1
 response = requests.get('https://adventofcode.com/2022/day/1/input', headers={'Cookie': SESSION})

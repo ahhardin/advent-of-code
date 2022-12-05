@@ -1,7 +1,7 @@
 import re
 import requests
 
-from advent_of_code.session import SESSION
+from years.session import SESSION
 
 response = requests.get('https://adventofcode.com/2022/day/5/input', headers={'Cookie': SESSION})
 data = response.content.decode('utf-8').strip().split('\n\n')
