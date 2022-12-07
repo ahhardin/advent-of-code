@@ -62,8 +62,7 @@ class File:
 def get_top(directory):
     if not directory.parent:
         return directory
-    if directory.parent:
-        return get_top(directory.parent)
+    return get_top(directory.parent)
 
 def execute_line(directory, line):
     instruction = next(
@@ -119,8 +118,7 @@ test = build_directory(test_data)
 assert(test.size == 48381165)
 
 def find_dirs_less_than_size(directory, size_limit, sizes=None):
-    if not sizes:
-        sizes = []
+    sizes = sizes or []
     for subdir in directory.subdirs:
         if subdir.size <= size_limit:
             sizes.append(subdir.size)
@@ -139,8 +137,7 @@ MAX_SIZE = 70000000
 SIZE_NEEDED = 30000000
 
 def find_dirs_greater_than_size(directory, size_min, sizes=None):
-    if not sizes:
-        sizes = []
+    sizes = sizes or []
     for subdir in directory.subdirs:
         if subdir.size >= size_min:
             sizes.append(subdir.size)
@@ -148,10 +145,10 @@ def find_dirs_greater_than_size(directory, size_min, sizes=None):
             sizes = find_dirs_greater_than_size(subdir, size_min, sizes)
     return sizes
 
-def directories_to_delete(directory):
+def directory_to_delete(directory):
     min_size_to_delete = SIZE_NEEDED - (MAX_SIZE - directory.size)
     return min(find_dirs_greater_than_size(directory, min_size_to_delete))
 
-assert(directories_to_delete(test) == 24933642)
+assert(directory_to_delete(test) == 24933642)
 
-print(f"part 2: {directories_to_delete(part_1_dir)}")
+print(f"part 2: {directory_to_delete(part_1_dir)}")
