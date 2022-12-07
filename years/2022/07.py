@@ -117,20 +117,22 @@ test = build_directory(test_data)
 
 assert(test.size == 48381165)
 
-def find_dirs_less_than_size(directory, size_limit, sizes=None):
+SIZE_LIMIT = 100000
+
+def find_dirs_less_than_size(directory, sizes=None):
     sizes = sizes or []
     for subdir in directory.subdirs:
-        if subdir.size <= size_limit:
+        if subdir.size <= SIZE_LIMIT:
             sizes.append(subdir.size)
         if subdir.subdirs:
-            sizes = find_dirs_less_than_size(subdir, size_limit, sizes)
+            sizes = find_dirs_less_than_size(subdir, sizes)
     return sizes
 
-test_sizes = find_dirs_less_than_size(test, 100000)
+test_sizes = find_dirs_less_than_size(test)
 assert(sum(test_sizes) == 95437)
 
 part_1_dir = build_directory(today_data)
-part_1_sizes = find_dirs_less_than_size(part_1_dir, 100000)
+part_1_sizes = find_dirs_less_than_size(part_1_dir)
 print(f"part 1: {sum(part_1_sizes)}")
 
 MAX_SIZE = 70000000
