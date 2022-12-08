@@ -47,8 +47,8 @@ class Dir:
         self.files = []
     
     @property
-    def subdir_mapping(self):
-        return {sd.name: sd for sd in self.subdirs}
+    def child_mapping(self):
+        return {c.name: c for c in self.subdirs + self.files}
     
     @property    
     def size(self):
@@ -77,35 +77,31 @@ def execute_line(directory, line):
             return get_top(directory)
         else:
             # go to loc if exists
-            if loc in directory.subdir_mapping.keys():
-                return directory.subdir_mapping[loc]
+            if loc in directory.child_mapping.keys():
+                return directory.child_mapping[loc]
             # else create loc and then go there
             else:
                 subdir = Dir(loc, directory)
                 directory.subdirs.append(subdir)
                 return subdir
-    # list
-    elif instruction[0] == "list_pattern":
-        return directory # next lines will add files to proper dir
     # create subdir
-    elif instruction[0] == "dir_pattern":
+    if instruction[0] == "dir_pattern":
         name = instruction[1].groups()[0]
-        if name in directory.subdir_mapping.keys():
+        if name in directory.child_mapping.keys():
             return directory
         subdir = Dir(name, directory)
         directory.subdirs.append(subdir)
         return directory
     # create file
-    elif instruction[0] == "file_pattern":
+    if instruction[0] == "file_pattern":
         name = instruction[1].groups()[1]
         size = instruction[1].groups()[0]
-        if name in directory.subdir_mapping.keys():
+        if name in directory.child_mapping.keys():
             return directory
         file = File(name, size)
         directory.files.append(file)
         return directory
-    else:
-        print('something is broken!', line, instruction)
+    return directory
     
 def build_directory(instructions):
     directory = Dir("top", None)
