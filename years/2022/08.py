@@ -25,13 +25,13 @@ def get_visible(plot):
     for i in range(1, max_i):
         for j in range(1, max_j):
             tree_height = plot[i][j]
-            if tree_height > max([item for item in plot[i][0:j]]):
+            if tree_height > max(plot[i][:j]):
                 visible_trees += 1
-            elif tree_height > max([item for item in plot[i][j+1:]]):
+            elif tree_height > max(plot[i][j+1:]):
                 visible_trees +=1
             elif tree_height > max([plot[k][j] for k in range(0, i)]):
                 visible_trees +=1  
-            elif tree_height > max([plot[k][j] for k in range(i+1, len(plot))]):
+            elif tree_height > max([plot[k][j] for k in range(i+1, max_i+1)]):
                 visible_trees +=1
     return visible_trees
 
