@@ -105,6 +105,7 @@ def pull_string_part_2(commands, rope_length):
     return len(set(tail_locations))
 
 assert(pull_string_part_2(test_data, 2) == 13)
+assert(pull_string_part_2(parsed_data, 2) == 5619)
 assert(pull_string_part_2(test_data, 10) == 1)
 assert(pull_string_part_2(test_data_2, 10) == 36)
 print(f"part 2: {pull_string_part_2(parsed_data, 10)}")
