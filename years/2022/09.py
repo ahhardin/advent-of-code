@@ -100,10 +100,7 @@ def pull_string_part_2(commands, rope_length):
                         knots[i] = take_step(knots[i], (sign(dx), 0))
                     # otherwise, move diagonally
                     else:
-                        tail_move = []
-                        tail_move.append(1) if dx > 0 else tail_move.append(-1)
-                        tail_move.append(1) if dy > 0 else tail_move.append(-1)
-                        knots[i] = take_step(knots[i], tuple(tail_move))
+                        knots[i] = take_step(knots[i], (sign(dx), sign(dy)))
             tail_locations.append(",".join(map(str, knots[rope_length-1])))
     return len(set(tail_locations))
 
