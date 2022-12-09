@@ -20,10 +20,10 @@ def get_visible(plot):
     # outside trees
     visible_trees = len(plot) * 2 + len(plot[0]) * 2 - 4
     # inside trees
-    max_i = len(plot)-1
-    max_j = len(plot[0])-1
-    for i in range(1, max_i):
-        for j in range(1, max_j):
+    max_i = len(plot)
+    max_j = len(plot[0])
+    for i in range(1, max_i-1):
+        for j in range(1, max_j-1):
             tree_height = plot[i][j]
             if tree_height > max(plot[i][:j]):
                 visible_trees += 1
@@ -31,7 +31,7 @@ def get_visible(plot):
                 visible_trees +=1
             elif tree_height > max([plot[k][j] for k in range(0, i)]):
                 visible_trees +=1  
-            elif tree_height > max([plot[k][j] for k in range(i+1, max_i+1)]):
+            elif tree_height > max([plot[k][j] for k in range(i+1, max_i)]):
                 visible_trees +=1
     return visible_trees
 
@@ -49,8 +49,8 @@ def get_scenic(plot):
     most_scenic = 0
     i_max = len(plot)
     j_max = len(plot[0])
-    for i in range(0, len(plot[0])):
-        for j in range(0, len(plot)):
+    for i in range(0, i_max):
+        for j in range(0, j_max):
             num_visible = {s: 0 for s in step_map.keys()}
             tree_height = int(plot[i][j])
             steps = ['left', 'right', 'up', 'down']
