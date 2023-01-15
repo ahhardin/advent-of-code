@@ -1,6 +1,5 @@
 import requests
 import re
-import math
 from functools import reduce
 from collections import defaultdict
 
