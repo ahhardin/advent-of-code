@@ -68,7 +68,7 @@ assert(drop_sand_pt_1(build_grid(test_data)) == 24)
 print(f"part 1: {drop_sand_pt_1(build_grid(real_data))}")
 
 def drop_sand_pt_2(grid):
-    floor_level = get_abyss_level(grid) + 1
+    floor_level = get_abyss_level(grid)
     # down, left diag, right diag
     step_order = [(0, 1), (-1, 1), (1, 1)]
     sand_number = 0
@@ -97,6 +97,7 @@ def drop_sand_pt_2(grid):
                 point = step_down(point, step_order[0])
             if point[1] == floor_level:
                 grid[point] = "o"
+                sand_number += 1
                 break
     return sand_number
 
