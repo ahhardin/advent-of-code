@@ -43,21 +43,19 @@ def drop_sand_pt_1(grid):
     at_abyss = False
     while not at_abyss:
         point = (500, 0)
-        while True:
-            if grid[step_down(point, step_order[0])]:
-                # check left
-                if grid[step_down(point, step_order[1])]:
-                    # check right
-                    if grid[step_down(point, step_order[2])]:
+        falling = True
+        while falling:
+            for s in step_order:
+                if grid[step_down(point, s)]:
+                    if s == (1, 1):
                         grid[point] = "o"
                         sand_number += 1
-                        break
+                        falling = False
                     else:
-                        point = step_down(point, step_order[2])
+                        continue
                 else:
-                    point = step_down(point, step_order[1])
-            else:
-                point = step_down(point, step_order[0])
+                    point = step_down(point, s)
+                    break
             if point[1] > abyss_level:
                 at_abyss = True
                 break
@@ -68,7 +66,7 @@ assert(drop_sand_pt_1(build_grid(test_data)) == 24)
 print(f"part 1: {drop_sand_pt_1(build_grid(real_data))}")
 
 def drop_sand_pt_2(grid):
-    floor_level = get_abyss_level(grid)
+    floor_level = get_abyss_level(grid) 
     # down, left diag, right diag
     step_order = [(0, 1), (-1, 1), (1, 1)]
     sand_number = 0
@@ -77,24 +75,22 @@ def drop_sand_pt_2(grid):
     starting_point = (500, 0)
     while not blocked:
         point = starting_point
-        while True:
+        falling = True
+        while falling:
             if grid[starting_point]:
                 blocked = True
                 break
-            if grid[step_down(point, step_order[0])]:
-                # check left
-                if grid[step_down(point, step_order[1])]:
-                    # check right
-                    if grid[step_down(point, step_order[2])]:
+            for s in step_order:
+                if grid[step_down(point, s)]:
+                    if s == (1, 1):
                         grid[point] = "o"
                         sand_number += 1
-                        break
+                        falling = False
                     else:
-                        point = step_down(point, step_order[2])
+                        continue
                 else:
-                    point = step_down(point, step_order[1])
-            else:
-                point = step_down(point, step_order[0])
+                    point = step_down(point, s)
+                    break
             if point[1] == floor_level:
                 grid[point] = "o"
                 sand_number += 1
