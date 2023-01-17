@@ -21,7 +21,6 @@ def compare(left, right):
         if type_left == int:
             return right - left
         elif type_left == list:
-            results = []
             tuples = zip_longest(left, right)
             for t in tuples:
                 if t[0] is None:
@@ -39,9 +38,7 @@ def compare(left, right):
             
 def get_orderings(data):
     orderings = []
-    i = 1
     for g in parse_input(data):
-        i += 1
         orderings.append(compare(g[0], g[1]))
     values = [idx + 1 for idx, o in enumerate(orderings) if o >= 0]
     return orderings, sum(values)

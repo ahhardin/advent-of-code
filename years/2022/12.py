@@ -66,8 +66,5 @@ def find_shortest_path_part_2(graph, start_nodes, end_node):
                 shortest_path = len(path) - 1
     return shortest_path
 
-graph, start_nodes, end_node = build_graph(test_data, ["S", "a"], "E")
-assert(find_shortest_path_part_2(graph, start_nodes, end_node) == 29)
-
-graph, start_nodes, end_node = build_graph(real_data, ["S", "a"], "E")
-print(f"part 2: {find_shortest_path_part_2(graph, start_nodes, end_node)}")
+assert(find_shortest_path_part_2(*build_graph(test_data, ["S", "a"], "E")) == 29)
+print(f'part 2: {find_shortest_path_part_2(*build_graph(real_data, ["S", "a"], "E"))}')
