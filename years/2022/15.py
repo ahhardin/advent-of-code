@@ -19,8 +19,18 @@ real_data = decode(real_input)
 
 dist = lambda x,y: abs(x[0] - y[0]) + abs(x[1] - y[1])
 
-def overlap(a, b):
-    return max(0, min(a[1], b[1]) - max(a[0], b[0]) + 1) 
+overlap = lambda a, b: max(0, min(a[1], b[1]) - max(a[0], b[0]) + 1) 
+
+def collapse_intervals(intervals):
+    # sort intervals by start
+    intervals.sort(key=lambda x: x[0])
+    new_intervals = [intervals[0]]
+    for interval in intervals[1:]:
+        if interval[0] <= new_intervals[-1][1] + 1:
+            new_intervals[-1][1] = max([interval[1], new_intervals[-1][1]])
+        else:
+            new_intervals.append(interval)
+    return new_intervals  
 
 def get_intervals(sensor, beacon, intervals, min_pos, max_pos, limit_x):
     distance = dist(sensor, beacon)
@@ -37,34 +47,19 @@ def get_intervals(sensor, beacon, intervals, min_pos, max_pos, limit_x):
                     intervals[j].append([start, end])
             else:
                 intervals[j].append([start, end])
+            intervals[j] = collapse_intervals(intervals[j])
         i += 1
-    return intervals
-
-def collapse_intervals(intervals):
-    # sort intervals by start
-    intervals.sort(key=lambda x: x[0])
-    new_intervals = [intervals[0]]
-    for interval in intervals[1:]:
-        if interval[0] <= new_intervals[-1][1] + 1:
-            new_intervals[-1][1] = max([interval[1], new_intervals[-1][1]])
-        else:
-            new_intervals.append(interval)
-    return new_intervals    
+    return intervals  
 
 def get_all_intervals(data, min_pos, max_pos, limit_x=False):
     intervals = defaultdict(list)
     for d in data:
         intervals.update(get_intervals(d[0], d[1], intervals, min_pos, max_pos, limit_x))
-    for k,v in intervals.items():
-        intervals[k] = collapse_intervals(v)
     return intervals
 
 def part_1(data, y_level):
     intervals = get_all_intervals(data, y_level, y_level)[y_level]
-    count = 0
-    for i in intervals:
-        count += i[1] - i[0]
-    return count
+    return sum([i[1] - i[0] for i in intervals])
 
 def part_2(data, min_pos, max_pos):
     intervals = get_all_intervals(data, min_pos, max_pos, True)
@@ -94,7 +89,7 @@ assert(part_2(test_data, 0, 20) == 56000011)
 start2 = datetime.now()
 print(f"part 2: {part_2(real_data, 0, 4000000)}")
 end2 = datetime.now()
-print(f"part 2 took {end2-start2}\n")
+print(f"part 2 took {end2-start2}")
 
 
 # For fun / debugging - plot of test data 
