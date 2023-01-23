@@ -34,10 +34,9 @@ def collapse_intervals(intervals):
 
 def get_intervals(sensor, beacon, intervals, min_pos, max_pos, limit_x):
     distance = dist(sensor, beacon)
-    i = 0
-    for j in range(sensor[1] - distance, sensor[1] + distance):
+    for idx, j in enumerate(range(sensor[1] - distance, sensor[1] + distance)):
         if min_pos <= j <= max_pos:
-            delta = i if i <= distance else (distance * 2) - i
+            delta = idx if idx <= distance else (distance * 2) - idx
             start = sensor[0] - delta
             end = sensor[0] + delta
             if limit_x:
@@ -48,7 +47,6 @@ def get_intervals(sensor, beacon, intervals, min_pos, max_pos, limit_x):
             else:
                 intervals[j].append([start, end])
             intervals[j] = collapse_intervals(intervals[j])
-        i += 1
     return intervals  
 
 def get_all_intervals(data, min_pos, max_pos, limit_x=False):
@@ -89,7 +87,7 @@ assert(part_2(test_data, 0, 20) == 56000011)
 start2 = datetime.now()
 print(f"part 2: {part_2(real_data, 0, 4000000)}")
 end2 = datetime.now()
-print(f"part 2 took {end2-start2}")
+print(f"part 2 took {end2-start2}\n")
 
 
 # For fun / debugging - plot of test data 
