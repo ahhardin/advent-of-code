@@ -80,7 +80,6 @@ print(f"Part 1: {part_1}")
 # part 2
 def process_data_part_2(data):
     gear_ratio = 0
-    # list all possible gears for each symbol
     possible_gears = defaultdict(lambda: defaultdict(list))
     symbol_map = get_symbol_coords(data, PART_2_REGEX)
     number_map = get_number_map(data)
@@ -90,9 +89,11 @@ def process_data_part_2(data):
             y = coord[1]
             if symbol_map[x][y]:
                 possible_gears[x][y].append(n[0])
-                if len(possible_gears[x][y]) == 2:
-                    gear_ratio += reduce(lambda x, y: x*y, possible_gears[x][y])
                 continue
+    for item in possible_gears.values():
+        for val in item.values():
+            if len(val) == 2:
+                gear_ratio += val[0] * val[1]
     return gear_ratio
 
 assert process_data_part_2(test_data) == 467835
