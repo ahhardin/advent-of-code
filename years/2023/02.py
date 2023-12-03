@@ -1,5 +1,6 @@
 # day 2
 import regex as re
+from collections import defaultdict
 
 from years.process import get_response, parse_response_to_array
 
@@ -14,9 +15,14 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 data = parse_response_to_array(get_response(day=2))
 test_data = parse_response_to_array(raw_test_data)
 
+# part 1
 def build_color_dict(line):
-    color_groups = lambda item: re.search("([0-9]+) (red|green|blue)", item)
-    return {color_groups(item).group(2): int(color_groups(item).group(1)) for item in line}
+    get_color_group = lambda item: re.search("([0-9]+) (red|green|blue)", item)
+    color_dict = {}
+    for item in line:
+      color_group = get_color_group(item)
+      color_dict[color_group.group(2)] = int(color_group.group(1))
+    return color_dict
 
 def parse_line(line):
     id_loc = re.search("(?<=Game )([0-9]+)", line)
@@ -37,7 +43,10 @@ def is_valid(trial):
     return True
 
 def is_game_valid(trials):
-    return all(is_valid(trial) for trial in trials)
+    for trial in trials:
+      if not is_valid(trial):
+        return False
+    return True
 
 def part_1(data):
     games = {parse_line(line)[0]: parse_line(line)[1] for line in data}
@@ -50,7 +59,7 @@ def part_1(data):
 assert part_1(test_data) == 8
 part_1 = part_1(data)
 
-from collections import defaultdict
+# part 2
 def get_game_max(trials):
     max_colors = defaultdict(int)
     for trial in trials:
@@ -60,8 +69,11 @@ def get_game_max(trials):
     return max_colors["red"] * max_colors["blue"] * max_colors["green"]
 
 def part_2(data):
-    games = {parse_line(line)[0]: parse_line(line)[1] for line in data}
+    games = {}
     tot = 0
+    for line in data:
+      parsed = parse_line(line)
+      games[parsed[0]] = parsed[1]
     for trials in games.values():
         tot += get_game_max(trials)
     return tot
