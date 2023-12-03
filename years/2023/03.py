@@ -70,8 +70,7 @@ def process_data(data):
     # check each number neighbor coordinate set to see if exists in symbol map
     for n in number_map:
         for coord in n[1]:
-            x = coord[0]
-            y = coord[1]
+            x, y = coord
             if symbol_map[x][y]:
                 tot += n[0]
                 continue
@@ -91,8 +90,7 @@ def process_data_part_2(data):
     number_map = get_number_map(data)
     for n in number_map:
         for coord in n[1]:
-            x = coord[0]
-            y = coord[1]
+            x,y = coord
             if symbol_map[x][y]:
                 possible_gears[x][y].append(n[0])
                 continue
