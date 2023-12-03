@@ -1,7 +1,6 @@
 import regex as re
 
 from collections import defaultdict
-from functools import reduce
 
 from years.process import get_response, parse_response_to_array
 
