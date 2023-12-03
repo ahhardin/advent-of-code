@@ -36,10 +36,15 @@ def get_number_neighbors_in_line(line, line_id):
         x1 = match.start()
         x2 = match.end()
         value = int(match.group())
-        x_neighbors = [x for x in range(x1-1, x2+1)]
-        neighbor_coords = set()
-        for x in x_neighbors:
-            neighbor_coords.update([(x, line_id), (x,line_id+1), (x,line_id-1)])
+        # ends
+        neighbor_coords = set([
+          (x1-1, line_id), (x2, line_id),
+          (x1-1, line_id+1), (x2, line_id+1),
+          (x1-1, line_id-1), (x2, line_id-1),
+        ])
+        # top and bottom
+        for x in range(x1, x2):
+            neighbor_coords.update([(x,line_id+1), (x,line_id-1)])
         number_neighbors.append([value, neighbor_coords])
     return number_neighbors
 
@@ -65,7 +70,9 @@ def process_data(data):
     # check each number neighbor coordinate set to see if exists in symbol map
     for n in number_map:
         for coord in n[1]:
-            if symbol_map[coord[0]][coord[1]]:
+            x = coord[0]
+            y = coord[1]
+            if symbol_map[x][y]:
                 tot += n[0]
                 continue
     return tot
