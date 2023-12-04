@@ -22,8 +22,8 @@ def parse_card(card):
     match = re.search(PATTERN, card)
     return {
         "card_id": int(match.group("card_id")),
-        "winning": set(int(num) for num in match.group("winning").split(" ") if num),
-        "card_nums": set(int(num) for num in match.group("card_nums").split(" ") if num)
+        "winning": set(int(num) for num in match.group("winning").split()),
+        "card_nums": set(int(num) for num in match.group("card_nums").split())
     }
 
 def get_num_wins(card_data):
