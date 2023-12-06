@@ -2,3 +2,4 @@
 /env/
 **/session.py
 __pycache__/
+*.ipynb
