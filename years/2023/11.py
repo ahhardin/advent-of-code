@@ -50,7 +50,7 @@ def num_smaller(num, sorted_array):
 
 def apply_universe_growth(mapping):
     new_mapping = []
-    for idx, g in enumerate(mapping["galaxies"]):
+    for g in mapping["galaxies"]:
         row_adjustment = num_smaller(g[0], mapping["empty_rows"])
         column_adjustment = num_smaller(g[1], mapping["empty_columns"])
         new_mapping.append((g[0] + row_adjustment, g[1] + column_adjustment))
@@ -73,11 +73,11 @@ def part_1(data):
 assert(part_1(test_data) == 374)
 
 part_1 = part_1(data)
-print(f"Part 1: {part_1}")
+print(f"Part 1: {part_1}") # 9329143
 
 def apply_universe_growth_pt2(mapping, growth):
     new_mapping = []
-    for idx, g in enumerate(mapping["galaxies"]):
+    for g in mapping["galaxies"]:
         row_adjustment = max(0, num_smaller(g[0], mapping["empty_rows"]) * (growth - 1))
         column_adjustment = max(0, num_smaller(g[1], mapping["empty_columns"]) * (growth - 1))
         new_mapping.append((g[0] + row_adjustment, g[1] + column_adjustment))
@@ -93,4 +93,4 @@ assert(part_2(test_data, 10) == 1030)
 assert(part_2(test_data, 100) == 8410)
 
 part_2 = part_2(data, 1000000)
-print(f"Part 2: {part_2}")
+print(f"Part 2: {part_2}") # 710674907809
