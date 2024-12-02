@@ -33,7 +33,7 @@ assert part_1(test_lines) == 2
 print(f"Part 1 = {part_1(real_lines)}")
 
 # part 2
-def is_increasing_with_dampner(line, dampened=False):
+def is_increasing_with_dampener(line, dampened=False):
     for idx, (a,b) in enumerate(zip(line, line[1:])):
         if a<b and b-a<=3:
             continue
@@ -42,14 +42,14 @@ def is_increasing_with_dampner(line, dampened=False):
             new_line_a = line.copy()
             new_line_b.pop(idx+1)
             new_line_a.pop(idx)
-            pop_b = is_increasing_with_dampner(new_line_b, True)
-            pop_a = is_increasing_with_dampner(new_line_a, True)
+            pop_b = is_increasing_with_dampener(new_line_b, True)
+            pop_a = is_increasing_with_dampener(new_line_a, True)
             return pop_b or pop_a
         else:
             return False
     return True
 
-def is_decreasing_with_dampner(line, dampened=False):
+def is_decreasing_with_dampener(line, dampened=False):
     for idx, (a,b) in enumerate(zip(line, line[1:])):
         if a>b and a-b<=3:
             continue
@@ -58,8 +58,8 @@ def is_decreasing_with_dampner(line, dampened=False):
             new_line_a = line.copy()
             new_line_b.pop(idx+1)
             new_line_a.pop(idx)
-            pop_b = is_decreasing_with_dampner(new_line_b, True)
-            pop_a = is_decreasing_with_dampner(new_line_a, True)
+            pop_b = is_decreasing_with_dampener(new_line_b, True)
+            pop_a = is_decreasing_with_dampener(new_line_a, True)
             return pop_b or pop_a
         else:
             return False
@@ -68,7 +68,7 @@ def is_decreasing_with_dampner(line, dampened=False):
 def part_2(lines):
     safe_lines = 0
     for line in lines:
-        if is_increasing_with_dampner(line) or is_decreasing_with_dampner(line):
+        if is_increasing_with_dampener(line) or is_decreasing_with_dampener(line):
             safe_lines += 1
     return safe_lines
 
