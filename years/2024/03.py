@@ -1,8 +1,6 @@
 # day 3
 
 import regex as re
-import requests
-from years.session import SESSION
 from years.process import get_response
 
 response = get_response(day=3, year=2024)
