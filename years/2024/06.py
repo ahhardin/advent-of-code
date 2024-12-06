@@ -1,5 +1,5 @@
 # day 6
-from years.process import catchtime, get_response
+from years.process import get_response
 
 test_input = """
 ....#.....

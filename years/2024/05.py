@@ -1,7 +1,4 @@
 # day 5
-import regex as re
-import requests
-from years.session import SESSION
 from years.process import get_response
 from collections import defaultdict
 
