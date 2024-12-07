@@ -23,8 +23,10 @@ operators_1 = [lambda a,b: a+b, lambda a,b: a*b]
 
 def check_permutation(items, op_perm, result):
     value = items[0]
-    for pair in zip(items[1:], op_perm):
-        value = pair[1](value, pair[0])
+    for item, operator in zip(items[1:], op_perm):
+        value = operator(value, item)
+        if value > result:
+            return False
     return value == result
         
 def solve(data, operators):
