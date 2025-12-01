@@ -3,3 +3,4 @@
 **/session.py
 __pycache__/
 *.ipynb
+notebooks/*
