@@ -16,20 +16,21 @@ L82
 """
 test_data = parse_response_to_array(test_raw_data)
 
+# both parts
+MAX = 100
+OPERATORS = {
+    "L": lambda x,y: x - y,
+    "R": lambda x,y: x + y
+}
 
 # part 1
 def part_1(data):
-    MAX = 100
     num_zeroes = 0
     position = 50
-    operators = {
-        "L": lambda x,y: x - y,
-        "R": lambda x,y: x + y
-    }
     for item in data:
         direction = item[0]
         length = int(item[1:])
-        raw_new_position = operators[direction](position, length)
+        raw_new_position = OPERATORS[direction](position, length)
         new_position = raw_new_position % MAX
         
         position = new_position
@@ -39,22 +40,17 @@ def part_1(data):
         
     return num_zeroes
         
-        
-print(f"Part 1:{part_1(real_data)}")
+assert part_1(test_data) == 3
+print(f"Part 1: {part_1(real_data)}")
 
 def part_2(data):
-    MAX = 100
     num_zeroes = 0
     position = 50
-    operators = {
-        "L": lambda x,y: x - y,
-        "R": lambda x,y: x + y
-    }
     for item in data:
         direction = item[0]
         length = int(item[1:])
         mod_length = length // MAX
-        raw_new_position = operators[direction](position, length % MAX)
+        raw_new_position = OPERATORS[direction](position, length % MAX)
         new_position = raw_new_position % MAX
         
         num_zeroes += mod_length # number of times we cross zero in full rotations
@@ -68,11 +64,13 @@ def part_2(data):
         
         position = new_position
     
+    # since we count zeroes -after- we land on them, this handles the edge case where the last rotation lands on zero
     if not position:
         num_zeroes += 1
         
     return num_zeroes
 
-print(f"Part 2:{part_2(real_data)}")
+assert part_2(test_data) == 6
+print(f"Part 2: {part_2(real_data)}")
 
 
