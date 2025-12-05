@@ -14,15 +14,12 @@ test_data_raw = """
 @.@.@@@.@.
 """
 def process_data(raw_data):
-    return raw_data.strip().split("\n")
-
-def process_data(raw_data):
     return parse_response_to_array(raw_data.strip())
   
 test_data = process_data(test_data_raw)
 real_data = process_data(real_data_raw)
 
-def process_line(line, row_num, matrix):
+def process_line_into_matrix(line, row_num, matrix):
     for idx, item in enumerate(line):
         if item == "@":
             matrix[(idx, row_num)] = False # can it be removed
@@ -31,7 +28,7 @@ def process_line(line, row_num, matrix):
 def build_matrix(data):
     matrix = {}
     for idx, line in enumerate(data):
-        matrix = process_line(line, idx, matrix)
+        matrix = process_line_into_matrix(line, idx, matrix)
     return matrix, idx
 
 def get_displacements():
