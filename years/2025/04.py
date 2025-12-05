@@ -72,10 +72,8 @@ def remove_rolls(matrix, num_removed, limit):
 
 def part_2(data):
     matrix, idx = build_matrix(data)
-    num_removed = remove_rolls(matrix, 0, idx)
+    return remove_rolls(matrix, 0, idx)
     
-    return num_removed
-
 
 assert part_2(test_data) == 43
 print(f"Part 2: {part_2(real_data)}")
