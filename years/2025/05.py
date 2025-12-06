@@ -49,13 +49,6 @@ def is_overlap(range_1, range_2):
 def merge_ranges(range_1, range_2):
     return tuple([min(range_1[0], range_2[0]), max(range_1[1], range_2[1])])
 
-def overlaps_remain(groups):
-    for group_1 in groups:
-        for group_2 in groups:
-            if group_1 != group_2 and is_overlap(group_1, group_2):
-                return True
-    return False
-
 # tests
 assert is_overlap((0,5),(6,10)) == False
 assert is_overlap((7,50), (87,500)) == False
@@ -67,6 +60,7 @@ assert merge_ranges((7,20), (2,7)) == (2,20)
 
 def process_merging(groups):
     new_groups = set()
+    total_merges = 0
     for group_1 in groups:
         merges = 0
         for group_2 in groups:
@@ -76,9 +70,10 @@ def process_merging(groups):
             if is_overlap(group_1, group_2):
                 new_groups.add(merge_ranges(group_1, group_2))
                 merges +=1
+                total_merges += 1
         if not merges:
             new_groups.add(group_1)
-    if overlaps_remain(new_groups): 
+    if total_merges: 
         return process_merging(new_groups)
     return new_groups
 
