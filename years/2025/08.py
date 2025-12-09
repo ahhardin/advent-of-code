@@ -1,6 +1,7 @@
 from years.process import *
 from collections import defaultdict
 import math
+
 test_input = """
 162,817,812
 57,618,57
@@ -70,7 +71,9 @@ def part_1(input_data, num_connections):
     return math.prod(len(circuit) for circuit in top_3)
 
 assert part_1(test_input, 10) == 40
-print(f"Part 1: {part_1(real_input, 1000)}")
+with timer() as t:
+    print(f"Part 1: {part_1(real_input, 1000)}")
+print(f"Execution time: {t()}s")
 
 def part_2(input_data):
     coords = process_input_into_coords(input_data)
@@ -92,5 +95,8 @@ def part_2(input_data):
             return (node_1[0] * node_2[0])
 
 assert part_2(test_input) == 25272
-print(f"Part 2: {part_2(real_input)}")
-      
+with timer() as t:
+    print(f"Part 2: {part_2(real_input)}")
+print(f"Execution time: {t()}s")
+
+
