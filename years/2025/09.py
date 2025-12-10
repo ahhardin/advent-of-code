@@ -43,10 +43,9 @@ def part_2(input_data):
     coords = process_input_into_coords(input_data)
     sorted_rectangles = get_all_rectangles(coords)
     matrix = build_matrix(coords)
-    matrix_polygon = Polygon(matrix)
     for area, (p1,p2) in sorted_rectangles:
         polygon = Polygon([p1, (p1[0], p2[1]), p2, (p2[0], p1[1])])
-        if polygon.within(matrix_polygon):
+        if polygon.within(matrix):
             return area
 
 assert part_2(test_input) == 24
