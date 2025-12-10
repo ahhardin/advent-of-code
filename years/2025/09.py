@@ -37,19 +37,7 @@ with timer() as t:
 print(f"time elapsed {t()}s")
 
 def build_matrix(coords):  
-    return Polygon([p for p in coords])
-                
-            
-            
-def check_points(x1,y1, x2,y2, matrix):
-    x_sign = get_sign(x1, x2)
-    y_sign = get_sign(y1, y2)
-    for i in range(x1, x2+x_sign, x_sign or 1):
-        for j in range(y1,y2+y_sign, y_sign or 1):
-            if (i,j) not in matrix:
-                return False
-    return True
-            
+    return Polygon(coords)
     
 def part_2(input_data):
     coords = process_input_into_coords(input_data)
